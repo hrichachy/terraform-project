@@ -1,5 +1,5 @@
 provider "aws" {
-  region = "us-east-1a" # Change as needed
+  region = "us-east-1" # Change as needed
 }
 
 resource "aws_vpc" "main_vpc" {
@@ -28,7 +28,7 @@ resource "aws_subnet" "public" {
   vpc_id            = aws_vpc.main_vpc.id
   cidr_block        = cidrsubnet("10.0.0.0/24", 4, count.index)
   map_public_ip_on_launch = true
-  availability_zone = "us-east-1a" # Adjust or loop AZs if needed
+  availability_zone = "us-east-1" # Adjust or loop AZs if needed
   tags = {
     Name = "public-subnet-${count.index + 1}"
   }
@@ -46,7 +46,7 @@ resource "aws_subnet" "private" {
   count      = 3
   vpc_id     = aws_vpc.main_vpc.id
   cidr_block = cidrsubnet("10.0.1.0/24", 4, count.index)
-  availability_zone = "us-east-1a"
+  availability_zone = "us-east-1"
   tags = {
     Name = "private-subnet-${count.index + 1}"
   }
